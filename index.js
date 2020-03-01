@@ -1,22 +1,31 @@
-const core = require('@actions/core');
-const wait = require('./wait');
+const core = require("@actions/core");
+const exec = require("@actions/exec");
+const github = require("@actions/github");
 
-
-// most @actions toolkit packages have async methods
 async function run() {
-  try { 
-    const ms = core.getInput('milliseconds');
-    console.log(`Waiting ${ms} milliseconds ...`)
+  try {
+    console.log("Checkout code");
 
-    core.debug((new Date()).toTimeString())
-    await wait(parseInt(ms));
-    core.debug((new Date()).toTimeString())
+    await exec.exec(`git clone ${github.repository}`);
 
-    core.setOutput('time', new Date().toTimeString());
-  } 
-  catch (error) {
+    const branch = github.ref.split('/')[2]
+    await exec.exec(`git checkout ${branch}`);
+
+    const bootstrap = core.getInput("bootstrap"),
+      build_command = core.getInput("build_command"),
+      dist_path = core.getInput("dist_path");
+
+    console.log(`Bootstrapping repo`);
+    await exec.exec(bootstrap);
+
+    console.log(`Building Changes`);
+    await exec.exec(build_command);
+
+    core.setOutput("Building repo completed @ ", new Date().toTimeString());
+    core.setOutput("size", await exec.exec(`du ${dist_path}`));
+  } catch (error) {
     core.setFailed(error.message);
   }
 }
 
-run()
+run();

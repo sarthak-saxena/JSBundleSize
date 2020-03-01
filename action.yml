@@ -1,13 +1,25 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Calculate JS Bundle size'
+description: 'Github action to calculate total JS bundle size'
+author: 'sarthak-saxena'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  bootstrap:
+    description: 'cli command for bootstrapping repository ex npm install'
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps 
-    description: 'The message to output'
+    default: 'npm install'
+  build_command:
+    description: 'cli command for building repository ex npm run build'
+    required: true
+    default: 'npm run build'
+  dist_path:
+    description: 'output path for the build package'
+    required: true
+    default: 'dist'
 runs:
   using: 'node12'
   main: 'dist/index.js'
+outputs:
+  size: # output will be available to future steps
+    description: 'Build Size'
+branding:
+  icon: 'alert-triangle'
+  color: 'gray-dark'
