@@ -1,12 +1,11 @@
 {
-  "name": "javascript-action",
+  "name": "js-bundle-size",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "JSBundleSize",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
-    "package": "ncc build index.js -o dist",
-    "test": "eslint index.js && jest"
+    "package": "ncc build index.js -o dist"
   },
   "repository": {
     "type": "git",
@@ -30,7 +29,6 @@
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.5",
-    "eslint": "^6.3.0",
-    "jest": "^24.9.0"
+    "eslint": "^6.3.0"
   }
 }

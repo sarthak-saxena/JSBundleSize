@@ -1,0 +1,11 @@
+name: ES Lint Check
+
+on:
+  pull_request:
+    types: ['opened', 'reopened', 'synchronize']
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run lint
