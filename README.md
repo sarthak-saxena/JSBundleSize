@@ -44,7 +44,7 @@ steps:
 
 ```
 
-Also check [Demo.yml](./demo.yml) for complete configuration(on using github actions)
+Also check [Demo.yml](./Demo.yml) for complete configuration(on using github actions)
 
 ## License
 The scripts and documentation in this project are released under the [MIT License](./LICENSE)
