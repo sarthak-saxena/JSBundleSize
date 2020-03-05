@@ -1,4 +1,4 @@
-name: 'Calculate JS Bundle size'
+name: 'Compute JS Bundle size'
 description: 'Github action to calculate total JS bundle size'
 author: 'sarthak-saxena'
 inputs:
