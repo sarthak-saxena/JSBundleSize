@@ -4,7 +4,7 @@ Github action for computing javascript bundle size.
 ![How to use JSBundle Size action](https://i.imgur.com/koKtvty.gif)
 
 
-![github actions bot comment bundle size](https://i.imgur.com/sKjImeC.png)
+![github actions bot comment bundle size](https://i.imgur.com/GhElRd1.png)
 ## Usage:
 
 Checkout [action.yml](./action.yml)
