@@ -1,12 +1,11 @@
 name: ES Lint Check
 
-on:
-  pull_request:
-    types: ['opened', 'reopened', 'synchronize']
+on: [push]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - run: npm install
       - run: npm run lint
