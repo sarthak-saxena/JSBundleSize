@@ -1,7 +1,6 @@
 # JS bundle size
-Github action for computing javascript bundle size. It calculates & logs JavaScript bundle size on each pull request or commit (customisable).
-
-With the help of this action developers can now log & check the overall bundle size on commit basis & take necessary actions. This action gives gives complete transparency over the bundled size.
+Github action for computing javascript bundle size. It calculates  & logs JavaScript code bundled size on each pull request or commit (customizable).
+With the help of this action, developers can now log & check the overall code size after compression on per commit basis & take necessary actions.
 
 Upcoming features:
 Fail check if bundle size exceeds a specific value.
