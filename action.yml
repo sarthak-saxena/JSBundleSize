@@ -3,7 +3,7 @@ description: 'Github action to calculate total JS bundle size'
 author: 'sarthak-saxena'
 inputs:
   bootstrap:
-    description: 'cli command for bootstrapping repository ex npm install'
+    description: 'cli command for installing dependencies ex npm install'
     required: true
     default: 'npm install'
   build_command:
