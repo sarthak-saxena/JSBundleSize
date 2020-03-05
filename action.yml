@@ -1,5 +1,5 @@
 name: 'Compute JS Bundle size'
-description: 'Github action to calculate total JS bundle size'
+description: 'Github action to compute total JS bundle size'
 author: 'sarthak-saxena'
 inputs:
   bootstrap:
