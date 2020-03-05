@@ -1,8 +1,6 @@
 name: ES Lint Check
 
-on:
-  pull_request:
-    types: ['opened', 'reopened', 'synchronize']
+on: [push]
 
 jobs:
   lint:
