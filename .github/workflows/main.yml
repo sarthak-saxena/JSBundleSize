@@ -8,4 +8,5 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - run: npm run lint
