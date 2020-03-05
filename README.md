@@ -20,7 +20,7 @@ steps:
 
 ```
 
-By default github actions work on `node 12`.To specify a specific node version use:
+By default github actions work on `node 12`.For a specific node version use:
 
 ```yaml
 - uses: actions/setup-node@v1
