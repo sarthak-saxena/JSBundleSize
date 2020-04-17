@@ -16,22 +16,6 @@ async function run() {
     const octokit = new github.GitHub(token);
     // --------------- End octokit initialization ---------------
 
-    // --------------- Checkout code --------------- //
-    // console.log("Checkout code");
-    //
-    // await exec.exec(
-    //   `git clone git@github.com:${github.context.repo.owner}/${
-    //     github.context.repo.repo
-    //   }`
-    // );
-    //
-    // const refBranch = github.context.ref;
-    // console.log("ref", refBranch);
-    // const branch = refBranch.split("refs/heads/")[1];
-    // await exec.exec(`git checkout ${branch}`);
-    //
-    // End --------------- Checkout code --------------- //
-
     // --------------- Build repo  ---------------
     const bootstrap = core.getInput("bootstrap"),
       build_command = core.getInput("build_command"),
