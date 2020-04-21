@@ -45,8 +45,8 @@ steps:
           node-version: '10.0.0'
       - uses: sarthak-saxena/JSBundleSize@master
         with:
-          bootstrap: 'npm install'
-          build_command: 'npm run build'
+          bootstrap: npm install
+          build_command: npm run build
           dist_path: 'dist'
           token: ${{ secrets.GITHUB_TOKEN }}
 
