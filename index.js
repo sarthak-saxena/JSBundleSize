@@ -45,9 +45,8 @@ async function run() {
     };
     await exec.exec(`du ${dist_path}`, null, outputOptions);
     core.setOutput("size", sizeCalOutput);
-
     const context = github.context,
-      pull_request_number = context.payload.pull_request.number;
+      pull_request = context.payload.pull_request;
 
     const arrayOutput = sizeCalOutput.split("\n");
     let result = "Bundled size for the package is listed below: \n \n";
@@ -58,12 +57,23 @@ async function run() {
       }
     });
 
-    octokit.issues.createComment(
-      Object.assign(Object.assign({}, context.repo), {
-        issue_number: pull_request_number,
-        body: result
-      })
-    );
+    if (pull_request) {
+      // on pull request commit push add comment to pull request
+      octokit.issues.createComment(
+        Object.assign(Object.assign({}, context.repo), {
+          issue_number: pull_request.number,
+          body: result
+        })
+      );
+    } else {
+      // on commit push add comment to commit
+      octokit.repos.createCommitComment(
+        Object.assign(Object.assign({}, context.repo), {
+          commit_sha: github.context.sha,
+          body: result
+        })
+      );
+    }
 
     // --------------- End Comment repo size  ---------------
   } catch (error) {
