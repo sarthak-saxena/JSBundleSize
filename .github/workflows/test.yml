@@ -1,0 +1,19 @@
+name: Test action
+
+on: [push]
+
+permissions:
+    id-token: write
+    contents: read
+    pull-requests: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: fatton139/JSBundleSize@master
+        with:
+          dist_path: './dist/'
+          token: ${{ secrets.GITHUB_TOKEN }}
