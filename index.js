@@ -16,19 +16,6 @@ async function run() {
     const octokit = new github.GitHub(token);
     // --------------- End octokit initialization ---------------
 
-    // --------------- Build repo  ---------------
-    const bootstrap = core.getInput("bootstrap"),
-      build_command = core.getInput("build_command"),
-      dist_path = core.getInput("dist_path");
-
-    console.log(`Bootstrapping repo`);
-    await exec.exec(bootstrap);
-
-    console.log(`Building Changes`);
-    await exec.exec(build_command);
-
-    core.setOutput("Building repo completed @ ", new Date().toTimeString());
-
     // --------------- End Build repo  ---------------
 
     // --------------- Comment repo size  ---------------
