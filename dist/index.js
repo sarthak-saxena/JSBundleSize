@@ -1084,7 +1084,7 @@ async function run() {
     // --------------- octokit initialization  ---------------
     const token = core.getInput("token");
     console.log("Initializing oktokit with token", token);
-    const octokit = new github.GitHub(token);
+    const octokit = new github.getOctokit(token)
 
     const dist_path = core.getInput("dist_path");
 
