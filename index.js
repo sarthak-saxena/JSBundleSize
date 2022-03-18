@@ -89,14 +89,6 @@ async function run() {
           })
         );
       }
-    } else {
-      // on commit push add comment to commit
-      octokit.repos.createCommitComment(
-        Object.assign(Object.assign({}, context.repo), {
-          commit_sha: github.context.sha,
-          body: result,
-        })
-      );
     }
 
     // --------------- End Comment repo size  ---------------
