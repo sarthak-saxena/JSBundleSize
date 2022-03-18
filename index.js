@@ -2,6 +2,27 @@ const core = require("@actions/core");
 const exec = require("@actions/exec");
 const github = require("@actions/github");
 
+const findComment = async (octokit, owner, issue_number) => {
+  for await (const { data: comments } of octokit.paginate.iterator(
+    octokit.rest.issues.listComments,
+    {
+      owner,
+      issue_number,
+    }
+  )) {
+    // Search each page for the comment
+    const comment = comments.find(
+      (comment) =>
+        comment.user.login === owner &&
+        comment.body.includes("Bundled size for the files is listed below:")
+    );
+
+    if (comment) {
+      return comment;
+    }
+  }
+};
+
 async function run() {
   function bytesToSize(bytes) {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -44,14 +65,15 @@ async function run() {
     });
 
     if (pull_request) {
-      const existingComment = await octokit.issues.getComment({
-        issue_number: pull_request.number,
-        owner: "github-actions[bot]",
-      });
+      const existingComment = findComment(
+        octokit,
+        "github-actions[bot]",
+        pull_request.number
+      );
 
       // If the comment exists and starts with our defined header above then it must be our previous comment.
       // Then update instead of creating a new one.
-      if (existingComment && existingComment.body.startsWith(header)) {
+      if (existingComment) {
         octokit.issues.updateComment({
           comment_id: existingComment.id,
           body: result,
