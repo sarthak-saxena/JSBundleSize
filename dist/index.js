@@ -1395,11 +1395,9 @@ async function run() {
     const token = core.getInput("token");
     console.log("Initializing oktokit with token", token);
     const octokit = new github.GitHub(token);
-    // --------------- End octokit initialization ---------------
 
-    // --------------- End Build repo  ---------------
+    const dist_path = core.getInput("dist_path");
 
-    // --------------- Comment repo size  ---------------
     const outputOptions = {};
     let sizeCalOutput = "";
 
