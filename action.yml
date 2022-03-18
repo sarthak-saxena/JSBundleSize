@@ -10,7 +10,7 @@ inputs:
     description: 'your GITHUB_TOKEN'
     required: false
 runs:
-  using: 'node14'
+  using: 'node12'
   main: 'dist/index.js'
 outputs:
   size: # output will be available to future steps
