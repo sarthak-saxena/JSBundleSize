@@ -71,10 +71,12 @@ async function run() {
         pull_request.number
       );
 
+      console.log("--", existingComment);
+
       // If the comment exists and starts with our defined header above then it must be our previous comment.
       // Then update instead of creating a new one.
       if (existingComment) {
-        octokit.issues.updateComment({
+        octokit.rest.issues.updateComment({
           comment_id: existingComment.id,
           body: result,
         });
