@@ -82,7 +82,7 @@ async function run() {
         });
       } else {
         // on pull request commit push add comment to pull request
-        octokit.issues.createComment(
+        octokit.rest.issues.createComment(
           Object.assign(Object.assign({}, context.repo), {
             issue_number: pull_request.number,
             body: result,
