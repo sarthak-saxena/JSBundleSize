@@ -34,7 +34,7 @@ async function run() {
     // --------------- octokit initialization  ---------------
     const token = core.getInput("token");
     console.log("Initializing oktokit with token", token);
-    const octokit = new github.getOctokit(token)
+    const octokit = new github.getOctokit(token);
 
     const dist_path = core.getInput("dist_path");
 
@@ -72,6 +72,7 @@ async function run() {
       );
 
       console.log("--", existingComment);
+      console.log("test");
 
       // If the comment exists and starts with our defined header above then it must be our previous comment.
       // Then update instead of creating a new one.
