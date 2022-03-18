@@ -1402,12 +1402,12 @@ async function run() {
     let sizeCalOutput = "";
 
     outputOptions.listeners = {
-      stdout: data => {
+      stdout: (data) => {
         sizeCalOutput += data.toString();
       },
-      stderr: data => {
+      stderr: (data) => {
         sizeCalOutput += data.toString();
-      }
+      },
     };
     await exec.exec(`du ${dist_path}`, null, outputOptions);
     core.setOutput("size", sizeCalOutput);
@@ -1415,8 +1415,9 @@ async function run() {
       pull_request = context.payload.pull_request;
 
     const arrayOutput = sizeCalOutput.split("\n");
-    let result = "Bundled size for the package is listed below: \n \n";
-    arrayOutput.forEach(item => {
+    const header = "Bundled size for the files is listed below:";
+    let result = `${header} \n \n`;
+    arrayOutput.forEach((item) => {
       const i = item.split(/(\s+)/);
       if (item) {
         result += `**${i[2]}**: ${bytesToSize(parseInt(i[0]) * 1000)} \n`;
@@ -1424,19 +1425,33 @@ async function run() {
     });
 
     if (pull_request) {
-      // on pull request commit push add comment to pull request
-      octokit.issues.createComment(
-        Object.assign(Object.assign({}, context.repo), {
-          issue_number: pull_request.number,
-          body: result
-        })
-      );
+      const existingComment = await octokit.issues.getComment({
+        issue_number: pull_request.number,
+        owner: "github-actions[bot]",
+      });
+
+      // If the comment exists and starts with our defined header above then it must be our previous comment.
+      // Then update instead of creating a new one.
+      if (existingComment && existingComment.body.startsWith(header)) {
+        octokit.issues.updateComment({
+          comment_id: existingComment.id,
+          body: result,
+        });
+      } else {
+        // on pull request commit push add comment to pull request
+        octokit.issues.createComment(
+          Object.assign(Object.assign({}, context.repo), {
+            issue_number: pull_request.number,
+            body: result,
+          })
+        );
+      }
     } else {
       // on commit push add comment to commit
       octokit.repos.createCommitComment(
         Object.assign(Object.assign({}, context.repo), {
           commit_sha: github.context.sha,
-          body: result
+          body: result,
         })
       );
     }
